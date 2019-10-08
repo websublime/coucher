@@ -1,0 +1,36 @@
+{
+  "name": "@websublime/coucher",
+  "version": "0.0.1",
+  "description": "Couchbase ODM",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --forceExit --coverage --verbose",
+    "dev": "node -r ts-node/register src/index.ts"
+  },
+  "keywords": ["couchbase", "odm", "nql1", "typescript"],
+  "author": "Miguel Ramos",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.11",
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
+    "@typescript-eslint/parser": "^2.3.3",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "@types/couchbase": "^2.4.1",
+    "@types/uuid": "^3.4.5",
+    "couchbase": "^2.6.7",
+    "fp-ts": "^2.1.0",
+    "io-ts": "^2.0.1",
+    "uuid": "^3.3.3"
+  }
+}
