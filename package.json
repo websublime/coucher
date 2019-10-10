@@ -4,17 +4,24 @@
   "description": "Couchbase ODM",
   "main": "index.js",
   "scripts": {
-    "test": "jest --forceExit --coverage --verbose",
+    "test": "LCB_LOGLEVEL=5 jest --forceExit --coverage --verbose --detectOpenHandles",
     "dev": "node -r ts-node/register src/index.ts"
   },
-  "keywords": ["couchbase", "odm", "nql1", "typescript"],
+  "keywords": [
+    "couchbase",
+    "odm",
+    "nql1",
+    "typescript"
+  ],
   "author": "Miguel Ramos",
   "license": "MIT",
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.11",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
+    "dotenv": "^8.1.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",

@@ -1,11 +1,10 @@
 import { TypeBoolean } from '../src/entities/type';
 
-
 import * as t from 'io-ts'
 import { isRight } from 'fp-ts/lib/Either';
 import { isLeft } from 'fp-ts/lib/These';
 
-describe('> Test types', () => {
+xdescribe('> Test types', () => {
   it('...', () => {
     expect(TypeBoolean(true)).toBeTruthy();
     expect(TypeBoolean(false)).toBeTruthy();

@@ -1,12 +1,20 @@
 import { Bucket } from "couchbase";
 import { useBucketStorageError } from "./utils";
+import { CouchGetResponse } from "./types/coucher";
 
 export class Storage {
 
   protected bucket: Bucket;
 
-  constructor(bucket: Bucket) {
+  private bucketName: string;
+
+  constructor(bucket: Bucket, name = 'default') {
     this.bucket = bucket;
+    this.bucketName = name;
+  }
+
+  public getBucket() {
+    return this.bucket;
   }
 
   public getBucketManager() {
@@ -14,15 +22,15 @@ export class Storage {
   }
 
   public getBucketName() {
-    String(this.bucket);
+    return this.bucketName;
   }
 
   public disconnect() {
     this.bucket.disconnect();
   }
 
-  public async get(key: string, options = {}) {
-    return new Promise((resolve, reject) => {
+  public async get<T>(key: string, options = {}) {
+    return new Promise<CouchGetResponse<T>>((resolve, reject) => {
       this.bucket.get(key, options, (err, result) => {
         return err ? reject(useBucketStorageError(err.message)) : resolve(result);
       });

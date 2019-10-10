@@ -1,0 +1,42 @@
+version: '3.5'
+
+networks:
+  frontend:
+    driver: ${NETWORKS_DRIVER}
+  backend:
+    name: backend
+    driver: ${NETWORKS_DRIVER}
+    ipam:
+      config:
+        - subnet: 172.16.101.0/24
+
+volumes:
+  couchbase-master:
+    driver: ${VOLUMES_DRIVER}
+
+services:
+  couchbase-master:
+    container_name: couchbase-master
+    image: couchbase/server:community-6.0.0
+    volumes:
+      - '${DATA_PATH_HOST}/couchbase-master:/var/couchbase-master'
+    networks:
+      backend:
+        ipv4_address: 172.16.101.11
+    ports:
+      - 8091:8091
+      - 8092:8092
+      - 8093:8093
+      - 8094:8094
+      - 11210:11210
+    ulimits:
+      nproc: 65535
+      core:
+        soft: 100000000
+        hard: 100000000
+      memlock:
+        soft: 100000000
+        hard: 100000000
+      nofile:
+        soft: 40960
+        hard: 40960

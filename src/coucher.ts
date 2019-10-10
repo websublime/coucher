@@ -1,5 +1,7 @@
-import { Cluster, N1qlQuery, ClusterConstructorOptions, Bucket } from 'couchbase';
+import { Cluster, N1qlQuery, Bucket } from 'couchbase';
 import { useBucketConnectionError } from './utils';
+import { Storage } from './storage';
+import { CouchConnectionOptions } from './types/coucher';
 
 const consistencies = N1qlQuery.Consistency;
 
@@ -13,7 +15,7 @@ export class Coucher {
     STATEMENT_PLUS: number
   };
 
-  protected bucket: Bucket;
+  protected storage: Storage;
 
   constructor () {
     this.consistency = {
@@ -23,25 +25,31 @@ export class Coucher {
     };
   }
 
-  public async connect(url: string, bucketName: string, options?: ClusterConstructorOptions): Promise<Bucket> {
+  public async connect(url: string, bucketName: string, options?: CouchConnectionOptions): Promise<Bucket> {
     return new Promise((resolve, reject) => {
       const cluster = new Cluster(url, options);
+      const { username, password} = options || {};
+
+      if (username && password) {
+        cluster.authenticate(username, password);
+      }
+
       const bucket = cluster.openBucket(bucketName);
 
       bucket.on('connect', () => {
-        this.useBucket(bucket);
+        this.useBucket(bucket, bucketName);
         resolve(bucket);
       });
 
-      bucket.on('error', () => {
+      bucket.on('error', (error) => {
         return reject(
-          useBucketConnectionError('Could not establish connection with Couchbase cluster')
+          useBucketConnectionError(error.message)
         );
       });
     });
   }
 
-  public useBucket(bucket: Bucket) {
-    this.bucket = bucket;
+  public useBucket(bucket: Bucket, name: string = 'default') {
+    this.storage = new Storage(bucket, name);
   }
 }
