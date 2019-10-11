@@ -2,7 +2,10 @@
   "eslint.autoFixOnSave": true,
   "eslint.validate": [
     "javascript",
-    { "language": "typescript", "autoFix": true }
+    {
+      "language": "typescript",
+      "autoFix": true
+    }
   ],
   "editor.formatOnSave": true,
   "[javascript]": {
@@ -19,6 +22,5 @@
     "**/bower_components": true,
     "**/dist": true,
     "**/coverage": true
-  },
-  "typescript.referencesCodeLens.enabled": true
+  }
 }
